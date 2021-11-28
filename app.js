@@ -5,6 +5,7 @@ const app = express()
 //const db = require('./db')
 
 const Newsletter = require('./models/Newsletter')
+const Schedule = require('./models/Schedule')
 
 app.use(express.json())
 
@@ -38,8 +39,7 @@ app.get('/newsletter', async (req, res) => {
   res.json(listNewsLetters)
 })
 
-
-
+// NEWSLETTER //
 app.post('/add-newsletter', async (req, res) => {
   lixo = req.body.email
   const isEmail = await Newsletter.findOne({ where: { email: req.body.email } })
@@ -67,6 +67,59 @@ app.post('/add-newsletter', async (req, res) => {
     })
   }
 })
+
+// SCHEDULE //
+app.post('/add-schedule', async (req, res) => {
+  console.log(req.body)
+  await Schedule.create(req.body)
+    .then((schedule) => {
+      console.log('Cadastro enviado com sucesso!')
+      return res.json({
+        error: false,
+        mensagem: 'Cadastro enviado com Sucesso!',
+      })
+    }
+    )
+    .catch(() => {
+      console.log('Erro ao salvar Schedule!')
+      return res.status(400).json({
+        error: true,
+        message: 'Erro ao salvar schedule!',
+      })
+    }
+    )
+})
+
+app.put('/update-schedule', async (req, res) => {
+  await Schedule.update(req.body, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      console.log('Cadastro atualizado com sucesso!')
+      return res.json({
+        error: false,
+        mensagem: 'Cadastro atualizado com Sucesso!',
+      })
+    })
+    .catch(() => {
+      console.log('Erro ao atualizar Schedule!')
+      return res.status(400).json({
+        error: true,
+        message: 'Erro ao atualizar schedule!',
+      })
+    })
+})
+
+
+app.get('/schedule', async (req, res) => {
+  const listSchedule = await Schedule.findAll({
+    attributes: ['id', 'textOne', 'textTitle', 'textTwo', 'createdAt']
+  })
+  res.json(listSchedule)
+})
+
 
 
 app.listen(8080, () => {
