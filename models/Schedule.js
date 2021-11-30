@@ -8,6 +8,10 @@ const Schedule = db.define('schedule', {
     allowNull: false,
     primaryKey: true,
   },
+  timeStart: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
   textOne: {
     type: Sequelize.STRING,
     allowNull: true,
