@@ -59,7 +59,7 @@ app.post('/add-newsletter', async (req, res) => {
           message: 'Erro ao salvar newsletter!',
         })
       })
-    } else {
+  } else {
     console.log('Email já cadastrado!')
     return res.json({
       error: true,
@@ -71,32 +71,53 @@ app.post('/add-newsletter', async (req, res) => {
 // SCHEDULE //
 
 app.post('/add-schedule', async (req, res) => {
-    await Schedule.create(req.body)
-      .then((schedule) => {
-        console.log('Cadastro enviado com sucesso!')
-        return res.json({
-          error: false,
-          mensagem: 'Cadastro enviado com Sucesso!',
-        })
-      })
-      .catch(() => {
-        console.log('Erro ao salvar Schedule!')
-        return res.json({
-          error: true,
-          message: 'Erro ao salvar Schedule!',
-        })
+  await Schedule.create(req.body)
+    .then((schedule) => {
+      console.log('Cadastro enviado com sucesso!')
+      return res.json({
+        error: false,
+        mensagem: 'Cadastro enviado com Sucesso!',
       })
     })
+    .catch(() => {
+      console.log('Erro ao salvar Schedule!')
+      return res.json({
+        error: true,
+        message: 'Erro ao salvar Schedule!',
+      })
+    })
+})
+
+//PUT /schedule/:id
+app.put('/add-schedule/:id', async (req, res) => {
+  await Schedule.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((schedule) => {
+      console.log('Cadastro atualizado com sucesso!')
+      return res.json({
+        error: false,
+        mensagem: 'Cadastro atualizado com Sucesso!',
+      })
+    })
+    .catch(() => {
+      console.log('Erro ao atualizar Schedule!')
+      return res.json({
+        error: true,
+        message: 'Erro ao atualizar Schedule!',
+      })
+    })
+})
 
 
 app.get('/schedule', async (req, res) => {
   const listSchedule = await Schedule.findAll({
-    attributes: ['id', 'textOne', 'textTitle', 'textTwo', 'createdAt']
+    attributes: ['id', 'textOne', 'textTitle', 'textTwo', 'createdAt'],
   })
   res.json(listSchedule)
 })
-
-
 
 app.listen(8080, () => {
   console.log('Server running on port 8080')
