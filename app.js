@@ -69,48 +69,24 @@ app.post('/add-newsletter', async (req, res) => {
 })
 
 // SCHEDULE //
-app.post('/add-schedule', async (req, res) => {
-  console.log(req.body)
-  await Schedule.create(req.body)
-    .then((schedule) => {
-      console.log('Cadastro enviado com sucesso!')
-      return res.json({
-        error: false,
-        mensagem: 'Cadastro enviado com Sucesso!',
-      })
-    }
-    )
-    .catch(() => {
-      console.log('Erro ao salvar Schedule!')
-      return res.status(400).json({
-        error: true,
-        message: 'Erro ao salvar schedule!',
-      })
-    }
-    )
-})
 
-app.put('/update-schedule', async (req, res) => {
-  await Schedule.update(req.body, {
-    where: {
-      id: req.body.id,
-    },
-  })
-    .then(() => {
-      console.log('Cadastro atualizado com sucesso!')
-      return res.json({
-        error: false,
-        mensagem: 'Cadastro atualizado com Sucesso!',
+app.post('/add-schedule', async (req, res) => {
+    await Schedule.create(req.body)
+      .then((schedule) => {
+        console.log('Cadastro enviado com sucesso!')
+        return res.json({
+          error: false,
+          mensagem: 'Cadastro enviado com Sucesso!',
+        })
+      })
+      .catch(() => {
+        console.log('Erro ao salvar Schedule!')
+        return res.json({
+          error: true,
+          message: 'Erro ao salvar Schedule!',
+        })
       })
     })
-    .catch(() => {
-      console.log('Erro ao atualizar Schedule!')
-      return res.status(400).json({
-        error: true,
-        message: 'Erro ao atualizar schedule!',
-      })
-    })
-})
 
 
 app.get('/schedule', async (req, res) => {
