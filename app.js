@@ -114,7 +114,7 @@ app.put('/add-schedule/:id', async (req, res) => {
 
 app.get('/schedule', async (req, res) => {
   const listSchedule = await Schedule.findAll({
-    attributes: ['id', 'textTitle', 'textTwo', 'timeStart', 'createdAt'],
+    attributes: ['id', 'title', 'subtitle', 'timeStart', 'createdAt'],
   })
   res.json(listSchedule)
 })
