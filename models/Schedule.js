@@ -12,10 +12,6 @@ const Schedule = db.define('schedule', {
     type: Sequelize.INTEGER,
     allowNull: true,
   },
-  textOne: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
   textTitle: {
     type: Sequelize.STRING,
     allowNull: true,
