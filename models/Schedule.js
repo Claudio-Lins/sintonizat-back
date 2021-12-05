@@ -19,6 +19,10 @@ const Schedule = db.define('schedule', {
   subtitle: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  duration: {
+    type: Sequelize.INTEGER,
+    allowNull: true
   }
 })
 
