@@ -2,8 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 
-//const db = require('./db')
-
 const Newsletter = require('./models/Newsletter')
 const Schedule = require('./models/Schedule')
 
@@ -24,17 +22,6 @@ app.get('/newsletter', async (req, res) => {
   const listNewsLetters = await Newsletter.findAll({
     attributes: ['id', 'name', 'email', 'createdAt'],
   })
-  // .then((datanewsletter) => {
-  //     return res.listNewsLatters.json({
-  //         erro: false,
-  //         datanewsletter
-  //     });
-  // }).catch(() => {
-  //     return res.status(400).json({
-  //         erro: true,
-  //         mensagem: "Erro: Nenhum valor encontrado para a página home!"
-  //     });
-  // });
 
   res.json(listNewsLetters)
 })
@@ -114,7 +101,15 @@ app.put('/add-schedule/:id', async (req, res) => {
 
 app.get('/schedule', async (req, res) => {
   const listSchedule = await Schedule.findAll({
-    attributes: ['id', 'title', 'subtitle', 'timeStart', 'duration', 'createdAt'],
+    attributes: [
+      'id',
+      'title',
+      'subtitle',
+      'timeStart',
+      'columnDay',
+      'duration',
+      'createdAt',
+    ],
   })
   res.json(listSchedule)
 })

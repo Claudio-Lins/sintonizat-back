@@ -12,6 +12,10 @@ const Schedule = db.define('schedule', {
     type: Sequelize.INTEGER,
     allowNull: true,
   },
+  columnDay: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
   title: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -26,6 +30,6 @@ const Schedule = db.define('schedule', {
   }
 })
 
-// Schedule.sync({ alter: true })
+//Schedule.sync({ alter: true })
 
 module.exports = Schedule
