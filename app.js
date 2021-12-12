@@ -2,7 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 
-const Newsletter = require('./models/Newsletter')
+import { router } from './routes'
+
+// const Newsletter = require('./models/Newsletter')
 const Schedule = require('./models/Schedule')
 
 app.use(express.json())
@@ -18,42 +20,8 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/newsletter', async (req, res) => {
-  const listNewsLetters = await Newsletter.findAll({
-    attributes: ['id', 'name', 'email', 'createdAt'],
-  })
+app.use(router)
 
-  res.json(listNewsLetters)
-})
-
-// NEWSLETTER //
-app.post('/add-newsletter', async (req, res) => {
-  lixo = req.body.email
-  const isEmail = await Newsletter.findOne({ where: { email: req.body.email } })
-  if (!isEmail) {
-    await Newsletter.create(req.body)
-      .then((newsletter) => {
-        console.log('Cadastro enviado com sucesso!')
-        return res.json({
-          error: false,
-          mensagem: 'Cadastro enviado com Sucesso!',
-        })
-      })
-      .catch(() => {
-        console.log('Erro ao salvar Newsletter!')
-        return res.json({
-          error: true,
-          message: 'Erro ao salvar newsletter!',
-        })
-      })
-  } else {
-    console.log('Email já cadastrado!')
-    return res.json({
-      error: true,
-      message: 'Email já cadastrado!',
-    })
-  }
-})
 
 // SCHEDULE //
 
