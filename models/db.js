@@ -1,12 +1,13 @@
 const { Sequelize } = require('sequelize')
+require('dotenv').config()
 
 // Local
 const sequelize = new Sequelize(
-  'sintoniz_api_dev',
-  'sintoniz_api_dev_admin',
-  'nc!#QC!u@KG',
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASS,
   {
-    host: '185.240.248.86',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
     define: {
       timestamps: true,
